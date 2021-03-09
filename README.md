@@ -2,7 +2,7 @@
 Explain about Checkmarx DOM types with sample code.
 
 ## DOM Type List
-1. AccessorDecl
+1. <s>AccessorDecl</s>
 2. AccessorModifiers
 3. ArgumentRef
 4. ArrayCreateExpr
