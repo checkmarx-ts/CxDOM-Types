@@ -1,5 +1,6 @@
 # CxDOM-Types
 Explain about Checkmarx DOM types with sample code.
+The strikethrough ones are not used in CxSAST 9.2. They may be used in futhure releases of CxSAST or AST.
 
 ## DOM Type List
 1. <s>AccessorDecl</s>
@@ -118,4 +119,3 @@ Explain about Checkmarx DOM types with sample code.
 114. VariableDecl
 115. VariableDeclStmt
 
-The strikethrough ones are not used in CxSAST 9.2. They may be used in futhure releases of CxSAST or AST.
