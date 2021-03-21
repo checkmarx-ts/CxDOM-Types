@@ -1,6 +1,9 @@
 # CxDOM-Types
 Explain about Checkmarx DOM types with sample code.
-The strikethrough ones are not used in CxSAST 9.2. They may be used in futhure releases of CxSAST or AST.
+
+Please also refer to [How to Use Undocumented CxQL Object APIs](https://checkmarx.force.com/CheckmarxCustomerServiceCommunity/s/article/How-to-Use-Undocumented-CxQL-Object-APIs).
+
+The strikethrough ones are not used in CxSAST 9.2. They may be used in futhure releases of CxSAST or CxAST.
 
 ## DOM Type List
 1. <s>AccessorDecl</s>
