@@ -5,6 +5,7 @@
 * 4 ArrayCreateExpr
 * 6 ArrayInitializer
 * 8 AssignExpr
+* 9 AssignOperator
 * 16 BinaryExpr
 * 26 ClassDecl
 * 38 Declarator
