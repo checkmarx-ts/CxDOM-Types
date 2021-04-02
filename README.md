@@ -1,11 +1,20 @@
-# CxDOM-Types
-Explain about Checkmarx DOM types with sample code.
+### CxDOM-Types
+The purpose of this project is to explain Checkmarx DOM types with sample code.
 
-Please also refer to [How to Use Undocumented CxQL Object APIs](https://checkmarx.force.com/CheckmarxCustomerServiceCommunity/s/article/How-to-Use-Undocumented-CxQL-Object-APIs).
+More info can be found from Checkmarx Customer Service Community: [How to Use Undocumented CxQL Object APIs](https://checkmarx.force.com/CheckmarxCustomerServiceCommunity/s/article/How-to-Use-Undocumented-CxQL-Object-APIs)
 
-The strikethrough ones are not used in CxSAST 9.2. They may be used in futhure releases of CxSAST or CxAST.
+Please visit the [wiki](https://github.com/checkmarx-ts/CxDOM-Types/wiki) to learn about the the Checkmarx DOM Types.
 
-## DOM Type List
+### Notice
+All related information is documented in the wiki pages of this project. 
+
+The code repo is just a storage for sample code and pictures. 
+
+The strikethrough ones are not used in CxSAST 9.2. 
+
+They may be used in futhure releases of CxSAST or CxAST.
+
+### DOM Type List
 1. <s>AccessorDecl</s>
 2. <s>AccessorModifiers</s>
 3. <s>ArgumentRef</s>
