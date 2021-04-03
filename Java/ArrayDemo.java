@@ -1,3 +1,5 @@
+package Java;
+
 /*
 * Sample code comes from https://docs.oracle.com/javase/tutorial/java/nutsandbolts/arrays.html
 *
@@ -28,7 +30,6 @@
 * Please check ArrayDemo.png for the whole DOM tree of this file.
 */
 
-
 class ArrayDemo {
 
     public static void main(String[] args) {
@@ -47,51 +48,26 @@ class ArrayDemo {
 }
 
 /*
-* source code element and its DOM Type:
-* ArrayDemo | ClassDecl
-*
-* Type References | TypeRefCollection
-* Members | MemberDeclCollection
-*
-* main | MethodDecl
-* void | TypeRef
-* Parameter Declarations | ParamDeclCollection
-* args | ParamDecl
-* String | TypeRef
-* [] | RankSpecifier
-* Statements | StatementCollection
-*	
-* VariableDeclStmt | VariableDeclStmt
-* int | TypeRef
-* [] RankSpecifier
-* anArray | Declarator
-* null | NullLiteral
-*
-* ExprStmt | ExprStmt
-* AssignExpr | AssignExpr
-* anArray | UnknownReference
-* ArrayCreateExpr | ArrayCreateExpr
-* 10 | IntegerLiteral
-* ArrayInitializer | ArrayInitializer
-* int | TypeRef
-* [] | RankSpecifier
-*
-* ExprStmt | ExprStmt
-* AssignExpr | AssignExpr
-* anArray | IndexerRef
-* anArray | UnknownReference
-* 0 | IntegerLiteral
-* 100 | IntegerLiteral
-*		
-* ExprStmt | ExprStmt
-* println | MethodInvokeExpr
-* println | MethodRef
-* out | MemberAccess
-* System | UnknownReference
-* Param | Param
-* BinaryExpr | BinaryExpr
-* "Element at index 0: " | StringLiteral
-* anArray | IndexerRef
-* anArray | UnknownReference
-* 0 | IntegerLiteral	
-*/
+ * source code element and its DOM Type: ArrayDemo | ClassDecl
+ *
+ * Type References | TypeRefCollection Members | MemberDeclCollection
+ *
+ * main | MethodDecl void | TypeRef Parameter Declarations | ParamDeclCollection
+ * args | ParamDecl String | TypeRef [] | RankSpecifier Statements |
+ * StatementCollection
+ * 
+ * VariableDeclStmt | VariableDeclStmt int | TypeRef [] RankSpecifier anArray |
+ * Declarator null | NullLiteral
+ *
+ * ExprStmt | ExprStmt AssignExpr | AssignExpr anArray | UnknownReference
+ * ArrayCreateExpr | ArrayCreateExpr 10 | IntegerLiteral ArrayInitializer |
+ * ArrayInitializer int | TypeRef [] | RankSpecifier
+ *
+ * ExprStmt | ExprStmt AssignExpr | AssignExpr anArray | IndexerRef anArray |
+ * UnknownReference 0 | IntegerLiteral 100 | IntegerLiteral
+ * 
+ * ExprStmt | ExprStmt println | MethodInvokeExpr println | MethodRef out |
+ * MemberAccess System | UnknownReference Param | Param BinaryExpr | BinaryExpr
+ * "Element at index 0: " | StringLiteral anArray | IndexerRef anArray |
+ * UnknownReference 0 | IntegerLiteral
+ */
