@@ -34,7 +34,7 @@ They may be used in futhure releases of CxSAST or CxAST.
 17. BinaryOperator
 18. BooleanLiteral
 19. BreakStmt
-20. BuiltInType
+20. <s>BuiltInType</s>
 21. Case
 22. CastExpr
 23. Catch
