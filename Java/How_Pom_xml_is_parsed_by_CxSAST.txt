@@ -1,0 +1,200 @@
+XML files are transpiled into Java code during the pre-processing stage.
+
+This conversion is language-agnostic: 
+
+Each XML tag opening <tag becomes an IfStmt if (TAG) {
+
+Each attribute <tag attr=”x” becomes an assignment TAG.attr = “x”; inside the above IfStmt.
+
+The content of a <tag>Y</tag> becomes an assignment TAG.TEXT = “Y”; inside the above IfStmt.
+
+Each XML tag closing </tag> becomes an ExpressionStmt PARENT_TAGS.TAG;}, together with the } closing the open IfStmt, where PARENT_TAGS is the stack of parent tags separated by .
+
+These conversions are then put into the constructor of a randomly named class CxXmlConfigClass. ss
+
+
+Sample pom.XML file content:
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.checkmarx</groupId>
+	<artifactId>mybatis-test</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>mybatis-test</name>
+	<description>Configuration via XML</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.7</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>
+
+The above pom.xml file is converted to a Java Class:
+
+public class CxXmlConfigClass1622594767 { 
+  public CxXmlConfigClass() {
+    if (PROJECT) {
+      PROJECT.XMLNS = "http://maven.apache.org/POM/4.0.0";
+      PROJECT.XMLNS_XSI = "http://www.w3.org/2001/XMLSchema-instance";
+      PROJECT.XSI_SCHEMALOCATION = "http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd";     
+      PROJECT;
+      if (MODELVERSION) {
+        PROJECT.MODELVERSION.TEXT = "4.0.0";
+        PROJECT.MODELVERSION;
+      }
+      if (GROUPID) {
+        PROJECT.GROUPID.TEXT = "com.checkmarx";
+        PROJECT.GROUPID;
+      }
+	  if (ARTIFACTID) {
+		PROJECT.ARTIFACTID.TEXT = "mybatis-test";
+		PROJECT.ARTIFACTID;
+	  }
+	  
+	  if (PROPERTIES) {
+		if (PROJECT.BUILD.SOURCEENCODING) {
+			PROJECT.PROPERTIES.PROJECT.BUILD.SOURCEENCODING.TEXT = "UTF-8";
+			PROJECT.PROPERTIES.PROJECT.BUILD.SOURCEENCODING;
+		}
+		if (MAVEN.COMPILER.SOURCE) {
+			PROJECT.PROPERTIES.MAVEN.COMPILER.SOURCE.TEXT = "1.7";
+			PROJECT.PROPERTIES.MAVEN.COMPILER.SOURCE;
+		}
+		if (MAVEN.COMPILER.TARGET) {
+			PROJECT.PROPERTIES.MAVEN.COMPILER.TARGET.TEXT = "1.7";
+			PROJECT.PROPERTIES.MAVEN.COMPILER.TARGET;
+		}
+	  }
+	  
+	  if (DEPENDENCIES) {
+	    if (DEPENDENCY) {
+			if (GROUPID) {
+				PROJECT.DEPENDENCIES.DEPENDENCY.GROUPID.TEXT = "junit";
+				PROJECT.DEPENDENCIES.DEPENDENCY.GROUPID;
+			}
+			if (ARTIFACTID） {
+				PROJECT.DEPENDENCIES.DEPENDENCY.ARTIFACTID.TEXT = "junit";
+				PROJECT.DEPENDENCIES.DEPENDENCY.ARTIFACTID;
+			}
+			if (VERSION) {
+				PROJECT.DEPENDENCIES.DEPENDENCY.VERSION.TEXT = "4.12"; // Something wrong here in CxSAST 9.3
+				PROJECT.DEPENDENCIES.DEPENDENCY.VERSION;
+			}
+			if (SCOPE) {
+				PROJECT.DEPENDENCIES.DEPENDENCY.SCOPE.TEXT = “test";
+				PROJECT.DEPENDENCIES.DEPENDENCY.SCOPE;
+			}
+		}
+	  }
+	  
+    }
+  }
+}
+
+
+
+
+
+The DOM Structure of this Class in CxSAST 8.9 (Notice I skip braches that are very similar):
+CxXmlConfigClass1622594767 (ClassDecl)
+           /                         \
+  TypeRefCollection           MemberDeclCollction              
+								    \
+							     CxXmlConfigClass (ConstructorDecl)
+								  /              \
+			      ParamDeclCollection      StatementCollection
+					                        /       
+											if (IfStmt)
+											/         \
+					PROJECT (UnkownReference)       StatementCollection
+									                 /     \         \  ...                       \ 
+										       ExprStmt  ExprStmt    if (IfStmt)                if(ifStmt)
+											  /                                                   /      \
+									 AssignExpr                       DEPENDENCIES (UnkownReference)    StatementCollection
+								/      \                 \                                                  ...   \          \
+         PROJECT(UnkownReference)   XMLNS (MemberAccess) ""http://maven.apache.org/POM/4.0.0"" (StringLiteral)  if (IfStmt)   if (IfStmt)
+                                                                                                                             /  \    ...         
+                                                                                                  DEPENDENCY (UnkownReference)   StatementCollection
+																													              /  ...  \
+																													      if (IfStmt)    if (IfStmt)
+																													       /  \
+																								   VERSION (UnkownReference)  StatementCollection
+																														       /     ...         \
+																													    ExprStmt                ExprStmt
+																												        /                    /      \             \         \ 
+																											  AssignExpr         PROJECT (UnkownReference) DEPENDENCIES (MemberAccess) DEPENDENCY(MemberAccess) VERSION (MemberAccess)
+																									/      \             \         \      \       \
+								PROJECT (UnkownReference) DEPENDENCIES (MemberAccess) DEPENDENCY(MemberAccess) VERSION (MemberAccess) TEXT (MemberAccess)  ""4.1.2" (StringLiteral)
+																								
+The DOM Structure of this Class in CxSAST 9.3:
+CxXmlConfigClass1622594767 (ClassDecl)
+     /                              \
+Type References (TypeRefCollection) Members (MemberDeclCollction)
+                                    \
+						CxXmlConfigClass1622594767 (ConstructorDecl)
+						  /                    \
+Parameter Declarations (ParamDeclCollection)  Statements (StatementCollection)
+                                               /
+										   if (IfStmt)
+										   /   \
+				  PROJECT (UnkownReference)    Statements (StatementCollection)
+				                               /      \    \  \  ...    \
+                                        ExprStmt   ExprStmt if (IfStmt)  if (IfStmt)
+									   /                                 /         \
+							AssignExpr         DEPENDENCIES (UnkownReference)       Statements (StatementCollection)
+					   /   \      \                                                                      \     ...   \
+PROJECT(UnkownReference)   XMLNS (MemberAccess) ""http://maven.apache.org/POM/4.0.0"" (StringLiteral)   if (IfStmt)   if (IfStmt)
+                                                                                                         /   \
+																			 DEPENDENCY (UnkownReference)     Statements (StatementCollection)
+																			                                 /  ... \
+																								   if (IfStmt)       if (IfStmt)	
+																								    /  \
+																			VERSION (UnkownReference)  Statements (StatementCollection)
+																			                            /  ...  \
+																								ExprStmt        ExprStmt
+																							   /                 /      \             \         \ 
+																					  AssignExpr (?)     PROJECT (UnkownReference) DEPENDENCIES (MemberAccess) DEPENDENCY(MemberAccess) VERSION (MemberAccess)
+																		      <Something wrong here>
+
+For the line: PROJECT.DEPENDENCIES.DEPENDENCY.VERSION.TEXT = "4.12"; // Something wrong here in CxSAST 9.3
+
+By using query "result = All.FindByFathers(All.FindById(239));" we can see that PROJECT, DEPENDENCIES, DEPENDENCY, VERSION, TEXT, ""4.1.2"" are all direct child of AssignExpr (id:239).
+
+I am guesing the DOM like the following, we can call it DOM1:
+                                       AssignExpr (id:239)					  
+					/         \                          \                      \                      \                      \
+PROJECT (UnkownReference) DEPENDENCIES (MemberAccess) DEPENDENCY(MemberAccess) VERSION (MemberAccess) TEXT (MemberAccess)  ""4.1.2"" (StringLiteral)
+ id:241                    id:242                        id:243                 id:244                 id:245                id:240
+ 
+ 
+But when using the query "result = All.FindById(244).GetFathers();", what we have is TEXT (MemberAccess) id:245.
+Again using the query "result = All.FindById(245).GetFathers();", what we have is AssignExpr id:239.
+Again using the query "result = All.FindById(240).GetFathers();", what we have is AssignExpr id:239.
+
+So the DOM is like this, we can call it DOM2:
+                       AssignExpr (id:239)
+					     /       \ 
+		TEXT (MemberAccess)  ""4.1.2"" (StringLiteral)
+		      /
+		VERSION (MemberAccess)
+		     /
+	    DEPENDENCY(MemberAccess)
+		    /
+		DEPENDENCIES (MemberAccess)
+		   /
+		PROJECT (UnkownReference)
+
+Looks like a bug.
